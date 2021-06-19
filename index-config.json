@@ -1,0 +1,77 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "text_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase", "synonym_filter"
+          ]
+        },
+        "my_stop_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "english_stop"
+          ]
+        },
+        "abstract_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "english_stop",
+            "porter_stem"
+          ]
+        }
+      },
+      "filter": {
+        "english_stop": {
+          "type": "stop",
+          "stopwords": "_english_"
+        },
+        "synonym_filter": {
+          "type": "synonym",
+          "synonyms": [
+            "rock, philanthropist"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "title": {
+        "type": "text",
+        "analyzer": "whitespace",
+        "search_analyzer": "whitespace"
+      },
+      "abstract": {
+        "type": "text",
+        "analyzer": "abstract_analyzer",
+        "search_analyzer": "abstract_analyzer"
+      },
+      "text": {
+        "type": "text",
+        "analyzer": "text_analyzer",
+        "search_analyzer": "my_stop_analyzer",
+        "search_quote_analyzer": "text_analyzer"
+      },
+      "url": {
+        "type": "keyword"
+      },
+      "citations": {
+        "type": "long"
+      },
+      "citations_norm": {
+        "type": "double"
+      },
+      "topic": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+
